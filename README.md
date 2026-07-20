@@ -4,11 +4,13 @@ A Snapchat-style **NBA Hub** mockup built with **Expo + React Native**. It runs 
 
 ## Live demo (open on iPhone)
 
-**https://kritikadas6.github.io/BasketballSnapMockup/**
+### Share this link
 
-Open that link in Safari on an iPhone. Add to Home Screen if you want it to feel more like an app.
+**https://nba-x-snap-hub.vercel.app/**
 
-> Note: the public web build does **not** include your OpenAI API key (GitHub blocks that). Ja Morant chat will use safe fallback replies online. Chat with live GPT still works locally when `nba-Snap/.env` has `EXPO_PUBLIC_OPENAI_API_KEY`.
+Open it in **Safari on iPhone**. You can also tap Share → Add to Home Screen for an app-like icon.
+
+> The public site does **not** embed your OpenAI API key (that would be unsafe). Ja Morant chat uses short fallback replies online. Live GPT chat still works on your machine when `nba-Snap/.env` has `EXPO_PUBLIC_OPENAI_API_KEY`.
 
 ## What's included
 
@@ -52,25 +54,23 @@ EXPO_PUBLIC_RECEIPT_EMAIL=you@email.com
 
 | Variable | Purpose |
 |----------|---------|
-| `EXPO_PUBLIC_OPENAI_API_KEY` | Ja Morant chat (local / private builds only) |
+| `EXPO_PUBLIC_OPENAI_API_KEY` | Ja Morant chat (local only — never bake into public deploys) |
 | `EXPO_PUBLIC_RECEIPT_EMAIL` | Optional default for Snap Rewards receipts |
 
 Never commit `.env`.
 
-## Deploy / update the shareable website
-
-From `nba-Snap` (exports **without** secrets — keep `.env` out of the export):
+## Update the live website
 
 ```bash
-# temporarily hide secrets so they aren't baked into the site
+cd nba-Snap
+
+# hide secrets so they are not baked into the public JS bundle
 mv .env .env.bak
 npx expo export -p web -c
 mv .env.bak .env
 
-npm run deploy   # pushes dist/ to the gh-pages branch
+npx vercel dist --prod --name nba-x-snap-hub --yes
 ```
-
-GitHub Pages serves: https://kritikadas6.github.io/BasketballSnapMockup/
 
 ## Scripts
 
@@ -79,7 +79,6 @@ GitHub Pages serves: https://kritikadas6.github.io/BasketballSnapMockup/
 | `npx expo start` | Dev server |
 | `npx expo start --web` | Web only |
 | `npm run export:web` | Production static build → `dist/` |
-| `npm run deploy` | Build + publish to GitHub Pages |
 | `npx expo lint` | Lint |
 
 ## Repo

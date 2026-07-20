@@ -46,8 +46,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "export:web": "expo export -p web",
-    "predeploy": "expo export -p web",
-    "deploy": "gh-pages --nojekyll -d dist"
+    "deploy": "expo export -p web && vercel dist --prod --name nba-x-snap-hub --yes"
   },
   "private": true
 }
